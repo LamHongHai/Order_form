@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Đặt hàng - Thanh toán tiền mặt / Order - Pay with Cash</title>
+  <style>
+    body {
+      background-color: #e8acd7;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    .product-row {
+      margin-top: 10px;
+    }
+    button {
+      display: block;
+      margin: 20px auto 0;
+      padding: 10px 20px;
+      background-color: #4b2c5e;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #3b2250;
+    }
+    .total-price {
+      margin-top: 20px;
+      font-size: 18px;
+      text-align: right;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Đặt hàng - Thanh toán tiền mặt / <i>Order - Pay with Cash</i></h1>
+
+  <form action="https://formspree.io/f/mbloyzvj" method="POST" id="order-form">
+    <label>Họ và tên / <i>Full Name</i>:</label>
+    <input type="text" name="name" required>
+
+    <label>Email:</label>
+    <input type="email" name="email" required>
+
+    <label>Số điện thoại / <i>Phone number</i>:</label>
+    <input type="text" name="phone">
+
+    <label>Giới tính / <i>Gender</i>:</label>
+    <select name="gender" required>
+      <option value="" disabled selected>Chọn giới tính / Select gender</option>
+      <option value="Nam">Nam / Male</option>
+      <option value="Nữ">Nữ / Female</option>
+      <option value="Khác">Khác / Other</option>
+    </select>
+
+    <label>Tuổi / <i>Age</i>:</label>
+    <input type="number" name="age" min="10" max="100" required>
+
+    <label>Địa chỉ giao hàng / <i>Shipping address</i>:</label>
+    <textarea name="address" rows="3" required></textarea>
+
+    <label>Đơn hàng (Đơn giá) / <i>Items (Unit Price)</i>:</label>
+
+    <div class="product-row">
+      <input type="checkbox" name="order[]" value="Uji Matcha"> Uji Matcha (65.000đ / ~2.6 USD)
+      <br>Số lượng / <i>Quantity</i>: <input type="number" name="Uji_qty" min="0" value="0" data-price="65000" class="qty-input">
+    </div>
+
+    <div class="product-row">
+      <input type="checkbox" name="order[]" value="Unkaku Matcha"> Unkaku Matcha (85.000đ / ~3.4 USD)
+      <br>Số lượng / <i>Quantity</i>: <input type="number" name="Unkaku_qty" min="0" value="0" data-price="85000" class="qty-input">
+    </div>
+
+    <div class="product-row">
+      <input type="checkbox" name="order[]" value="Chigi No Shiro Matcha"> Chigi No Shiro Matcha (110.000đ / ~4.4 USD)
+      <br>Số lượng / <i>Quantity</i>: <input type="number" name="Chigi_qty" min="0" value="0" data-price="110000" class="qty-input">
+    </div>
+
+    <div class="product-row">
+      <input type="checkbox" name="order[]" value="Coco Matcha"> Coco Matcha (75.000đ / ~3.0 USD)
+      <br>Số lượng / <i>Quantity</i>: <input type="number" name="Coco_qty" min="0" value="0" data-price="75000" class="qty-input">
+    </div>
+
+    <div class="product-row">
+      <input type="checkbox" name="order[]" value="Strawberry Matcha"> Strawberry Matcha (95.000đ / ~3.8 USD)
+      <br>Số lượng / <i>Quantity</i>: <input type="number" name="Strawberry_qty" min="0" value="0" data-price="95000" class="qty-input">
+    </div>
+
+    <div class="product-row">
+      <input type="checkbox" name="order[]" value="Matcha Latte"> Matcha Latte (75.000đ / ~3.0 USD)
+      <br>Số lượng / <i>Quantity</i>: <input type="number" name="Latte_qty" min="0" value="0" data-price="75000" class="qty-input">
+    </div>
+
+    <div class="total-price">
+      Tổng cộng / <i>Total</i>: <span id="total">0</span> đ
+    </div>
+
+    <button type="submit">Thanh toán tiền mặt / <i>Pay with Cash</i></button>
+  </form>
+
+  <script>
+    const qtyInputs = document.querySelectorAll('.qty-input');
+    const totalSpan = document.getElementById('total');
+
+    function calculateTotal() {
+      let total = 0;
+      qtyInputs.forEach(input => {
+        const qty = parseInt(input.value) || 0;
+        const price = parseInt(input.dataset.price);
+        total += qty * price;
+      });
+      totalSpan.textContent = total.toLocaleString('vi-VN');
+    }
+
+    qtyInputs.forEach(input => {
+      input.addEventListener('input', calculateTotal);
+    });
+
+    calculateTotal();
+  </script>
+</body>
+</html>
