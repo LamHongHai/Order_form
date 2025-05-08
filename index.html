@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Thanh toán tiền mặt</title>
+</head>
+<body>
+  <h1>Đặt hàng - Thanh toán tiền mặt</h1>
+
+  <form action="https://formspree.io/f/mwpobrev" method="POST">
+    <!-- Tên -->
+    <label>Họ và tên:</label><br>
+    <input type="text" name="name" required><br><br>
+
+    <!-- Email -->
+    <label>Email:</label><br>
+    <input type="email" name="email" required><br><br>
+
+    <!-- Điện thoại -->
+    <label>Số điện thoại:</label><br>
+    <input type="text" name="phone"><br><br>
+
+    <!-- Địa chỉ -->
+    <label>Địa chỉ giao hàng:</label><br>
+    <textarea name="address" rows="3" required></textarea><br><br>
+
+    <!-- Món và số lượng -->
+    <label>Đơn hàng:</label><br>
+    <input type="checkbox" name="order[]" value="Uji Matcha"> Uji Matcha
+    Số lượng: <input type="number" name="Uji_qty" min="0"><br>
+
+    <input type="checkbox" name="order[]" value="Unkaku Matcha"> Unkaku Matcha
+    Số lượng: <input type="number" name="Unkaku_qty" min="0"><br>
+
+    <input type="checkbox" name="order[]" value="Chigi No Shiro Matcha"> Chigi No Shiro Matcha
+    Số lượng: <input type="number" name="Chigi_qty" min="0"><br><br>
+
+    <!-- Nút gửi -->
+    <button type="submit">Thanh toán tiền mặt</button>
+  </form>
+</body>
+</html>
